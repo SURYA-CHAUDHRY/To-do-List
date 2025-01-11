@@ -11,16 +11,42 @@
         <div class="todo-app">
             <h2>To-Do List <img src="images/icon.png"> </h2>
             <div class="row">
-              <input type="text" id="input-box" placeholder="Add your task"> 
-              <button onclick="addTask()">Add</button>
+                <input type="text" id="input-box" placeholder="Add your task"> 
+                <button onclick="addTask()">Add</button>
             </div>
             <ul id="list-container">
-                <!-- <li class="checked">Task 1</li>
-                <li>Task 2</li>
-                <li>Task 3</li> -->
-            </ul>
+                </ul>
         </div>
-</div>
-<script src="script.js"></script>
+    </div>
+    <script>
+        const inputBox = document.getElementById("input-box");
+        const listContainer = document.getElementById("list-container");
+        function addTask() {
+            if (inputBox.value === '') {
+                alert("You must write something!");
+            } else {
+                let li = document.createElement('li');
+                li.textContent = inputBox.value;
+                listContainer.appendChild(li);
+                let span = document.createElement('span');
+                span.textContent = "\u00D7";
+                li.appendChild(span);
+            }
+            inputBox.value = "";
+        }
+        listContainer.addEventListener("click", function(e){
+            if(e.target.tagName === "LI"){
+                e.target.classList.toggle("checked");
+            }
+            else if(e.target.tagName === "SPAN"){
+                e.target.parentElement.remove(); 
+            }
+        }, false);
+        inputBox.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                addTask(); 
+            }
+        });
+    </script>
 </body>
 </html>
